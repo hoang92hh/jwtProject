@@ -6,6 +6,7 @@ import java.util.Date;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
@@ -15,6 +16,8 @@ import io.jsonwebtoken.SignatureException;
 import io.jsonwebtoken.UnsupportedJwtException;
 
 // Là lớp 1 instance duy nhất ,  đảm nhận việc tao toke, kiểm tra validate, và lấy ra username từ token.
+
+@Component
 public class JwtTokenProvider implements Serializable {
 	
 	
@@ -64,8 +67,10 @@ public class JwtTokenProvider implements Serializable {
 	 
 	 //Lấy username từ toke đã có 
 	 public String getUserFromToke(String token) {
-//		 String userName = Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token).getBody().getSubject();
+		 String userName1 = Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token).getBody().getSubject();
+		 System.out.println(userName1);
 		 String userName = Jwts.parser().setSigningKey(secretKey).parseClaimsJwt(token).getBody().getSubject();
+		 System.out.println(userName);
 		 return userName;
 		 
 	 }

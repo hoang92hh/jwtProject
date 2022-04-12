@@ -25,7 +25,7 @@ import com.example.service.rank1.IAccountService;
 
 @Service()
 @Qualifier("account")
-public class AccountService implements IAccountService,UserDetailsService{
+public class AccountService implements IAccountService{
 	
 	
 	@Autowired	
@@ -86,23 +86,23 @@ public class AccountService implements IAccountService,UserDetailsService{
 	}
 
 
-	@Override
-	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		Account account = accountRepository.findByUsername(username);
-		if(account == null) {
-			throw new RuntimeException("Canh chim hoang yen gay~");
-		}
-	
-		Set<Role> roleSet =  account.getRoles();
-		List<GrantedAuthority> authList = new ArrayList<GrantedAuthority>();
-		for (Role role : roleSet) {
-			authList.add(new SimpleGrantedAuthority(role.getName()));
-		}
-		
-		UserDetails uDetails = new org.springframework.security.core.userdetails.User(username, account.getPassword(), authList);
-		
-		return uDetails ;
-	}
-	
+//	@Override
+//	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+//		Account account = accountRepository.findByUsername(username);
+//		if(account == null) {
+//			throw new RuntimeException("Canh chim hoang yen gay~");
+//		}
+//	
+//		Set<Role> roleSet =  account.getRoles();
+//		List<GrantedAuthority> authList = new ArrayList<GrantedAuthority>();
+//		for (Role role : roleSet) {
+//			authList.add(new SimpleGrantedAuthority(role.getName()));
+//		}
+//		
+//		UserDetails uDetails = new org.springframework.security.core.userdetails.User(username, account.getPassword(), authList);
+//		
+//		return uDetails ;
+//	}
+//	
 	
 }
